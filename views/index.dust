@@ -1,0 +1,24 @@
+{>"layout" /}
+
+{<body}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <h3 style="text-align:center" id="Title">URL: http://localhost:8000/live/localStream/index.m3u8</h3>
+      
+ </br>
+ </br>
+
+
+
+   <button type="button" class="btn btn-success btn-massive center-block" id="StartStreamBtn">Start Live Stream</button>
+
+   </br>
+   </br>
+
+   <button type="button" class="btn btn-danger btn-massive center-block" id="StopStreamBtn">Stop Live Stream</button>
+
+  </br>
+ 
+
+{/body}
