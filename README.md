@@ -1,15 +1,8 @@
 # Video Streamer
 
-currently using https://github.com/illuspas/Node-Media-Server
+currently using https://www.npmjs.com/package/hls-server#producing-streams
 
-start ffmpeg manually
-ffmpeg -re -i ./public/media/sample.mp4 -c copy -f flv rtmp://localhost/live/localStream
 
-kill all background ffmpegs
-killall ffmpeg
-
-precompile m3u8 for vod
-ffmpeg -i sample2.mp4 -profile:v baseline -level 3.0 -s 640x360 -start_number 0 -hls_time 10 -hls_list_size 0 -f hls index.m3u8
 
 
 #BRL change in ViperPlayerController
@@ -58,7 +51,3 @@ index0.ts
 #EXTINF:11.679111,
 index1.ts	
 ~~~~~~~~
-
-
-#ToDo
-integrate https://www.npmjs.com/package/hls-server#producing-streams
