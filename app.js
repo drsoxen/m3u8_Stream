@@ -64,7 +64,7 @@ app.get('/startStream', function (req, res) {
 
 app.get('/stopStream', function (req, res) {
   
-  ffmpegInstance.kill();
+  ffmpegInstance.kill(); //https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#killsignalsigkill-kill-any-running-ffmpeg-process
   fs.appendFile('./public/media/'  + currentFormat + '/' + currentFile + '/index.m3u8', '#EXT-X-ENDLIST', function (err) {
 
 });
