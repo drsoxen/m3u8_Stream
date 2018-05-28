@@ -10,10 +10,13 @@ var express = require('express'),
 
     const fs = require('fs');
 
+var ffmpegInstance
 
 var isLive = false
-currentFile = 'long'
-var currentDirectoy = './public/media/live/' + currentFile 
+var currentFile = 'long'
+var currentFormat = 'live'
+
+var currentDirectoy = './public/media/' + currentFormat + '/' + currentFile 
 
 app.engine('dust', cons.dust);
 
@@ -42,9 +45,11 @@ app.get('/', function (req, res) {
 
 function callback() { }
 
+
+//slow the livestream down https://www.ffmpeg.org/ffmpeg-formats.html#toc-Options-5
 app.get('/startStream', function (req, res) {
 
-  ffmpeg('./public/media/Sample_' + currentFile + '.mp4', { timeout: 432000 }).addOptions([
+  ffmpegInstance = ffmpeg('./public/media/Sample_' + currentFile + '.mp4', { timeout: 432000 }).addOptions([
     '-profile:v baseline', // baseline profile (level 3.0) for H264 video codec
     '-level 3.0', 
     '-s 640x360',          // 640px width, 360px height output video dimensions
@@ -52,18 +57,17 @@ app.get('/startStream', function (req, res) {
     '-hls_time 10',        // 10 second segment duration
     '-hls_list_size 0',    // Maxmimum number of playlist entries (0 means all entries/infinite)
     '-f hls'               // HLS format
-  ]).output('./public/media/vod/' + currentFile + '/index.m3u8').on('end', callback).run()
+  ]).output('./public/media/' + currentFormat + '/' + currentFile + '/index.m3u8').on('end', callback).run()
     
     res.end();
 });
 
 app.get('/stopStream', function (req, res) {
   
+  ffmpegInstance.kill();
+  fs.appendFile('./public/media/'  + currentFormat + '/' + currentFile + '/index.m3u8', '#EXT-X-ENDLIST', function (err) {
 
-// fs.appendFile('./public/media/live/localStream/index.m3u8', '#EXT-X-ENDLIST', function (err) {
-//   if (err) throw err;
-//   console.log('Saved!');
-// });
+});
 
     res.end();
 });
@@ -78,33 +82,3 @@ app.listen(3000, function () {
   console.log('Server Started On Port 3000');
 
 });
-
-//const config = {
-//   rtmp: {
-//     port: 1935,
-//     chunk_size: 60000,
-//     gop_cache: true,
-//     ping: 60,
-//     ping_timeout: 30
-//   },
-//   http: {
-//     port: 8000,
-//     mediaroot: './public/media',
-//     allow_origin: '*'
-//   },
-//   trans: {
-//     ffmpeg: '/usr/local/bin/ffmpeg',
-//     tasks: [
-//       {
-//         app: 'live',
-//         ac: 'aac',
-//         mp4: true,
-//         mp4Flags: '[movflags=faststart]',
-//         hls: true,
-//         hlsFlags: '[hls_time=2:hls_list_size=3:hls_flags=delete_segments]'
-//       }
-//     ]
-//   }
-// };
-
-// var nms = new NodeMediaServer(config)
