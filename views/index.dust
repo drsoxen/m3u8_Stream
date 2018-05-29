@@ -9,6 +9,18 @@
  </br>
  </br>
 
+ <div class="btn-group btn-group-toggle btn btn-secondary btn-massive center-block" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+  </label>
+</div>
+
 
 
    <button type="button" class="btn btn-success btn-massive center-block" id="StartStreamBtn">Start Live Stream</button>
