@@ -4,33 +4,45 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <h3 style="text-align:center" id="Title">URL: http://localhost:8000/live/localStream/index.m3u8</h3>
+  <h3 style="text-align:center" id="Title">URL: http://localhost:8000/index.m3u8</h3>
       
  </br>
  </br>
 
- <div class="btn-group btn-group-toggle btn btn-secondary btn-massive center-block" data-toggle="buttons">
+<h4 style="text-align:center" id="VodeType">Video Type</h4>
+ <div class="btn-group btn-group-toggle btn btn-secondary" data-toggle="buttons">
   <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+    <input type="radio" name="options" id="liveToggle" autocomplete="off" checked> Live
   </label>
   <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autocomplete="off"> Radio
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+    <input type="radio" name="options" id="option2" autocomplete="off"> VOD
   </label>
 </div>
 
+<h4 style="text-align:center" id="VodeType">Video Length</h4>
+ <div class="btn-group btn-group-toggle btn btn-secondary" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="liveToggle" autocomplete="off" checked> Long
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Short
+  </label>
+</div>
 
+</br>
+   </br>
+<div class="center-block">
 
-   <button type="button" class="btn btn-success btn-massive center-block" id="StartStreamBtn">Start Live Stream</button>
+   <button type="button" class="btn btn-success btn-massive" id="StartStreamBtn">Start Live Stream</button>
 
    </br>
    </br>
 
-   <button type="button" class="btn btn-danger btn-massive center-block" id="StopStreamBtn">Stop Live Stream</button>
+   <button type="button" class="btn btn-danger btn-massive" id="StopStreamBtn">Stop Live Stream</button>
 
   </br>
+
+</div>
  
 
 {/body}
