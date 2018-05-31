@@ -9,23 +9,23 @@
  </br>
  </br>
 
-<h4 style="text-align:center" id="VodeType">Video Type</h4>
- <div class="btn-group btn-group-toggle btn btn-secondary" data-toggle="buttons">
+<h4 style="text-align:center">Video Type</h4>
+ <div class="btn-group btn-group-toggle btn btn-secondary" id="VideoType" data-toggle="buttons">
   <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="liveToggle" autocomplete="off" checked> Live
+    <input type="radio" name="options" id="liveToggle" autocomplete="off"  value="live"> Live
   </label>
   <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autocomplete="off"> VOD
-  </label>
-</div>
+    <input type="radio" name="options" id="option2" autocomplete="off" value="vod"> VOD
+  </label
+></div>
 
-<h4 style="text-align:center" id="VodeType">Video Length</h4>
- <div class="btn-group btn-group-toggle btn btn-secondary" data-toggle="buttons">
+<h4 style="text-align:center">Video Length</h4>
+ <div class="btn-group btn-group-toggle btn btn-secondary" id="VideoLength" data-toggle="buttons">
   <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="liveToggle" autocomplete="off" checked> Long
+    <input type="radio" name="options" id="liveToggle" autocomplete="off"  value="long"> Long
   </label>
   <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autocomplete="off"> Short
+    <input type="radio" name="options" id="option2" autocomplete="off" value="short"> Short
   </label>
 </div>
 

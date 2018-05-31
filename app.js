@@ -4,19 +4,23 @@ var express = require('express'),
     cons = require('consolidate'),
     dust = require('dustjs-helpers'),
     child_process = require('child_process'),
+    ffmpegInstaller = require('@ffmpeg-installer/ffmpeg'),
     ffmpeg = require('fluent-ffmpeg')
     app = express();
     const NodeMediaServer = require('node-media-server');
 
     const fs = require('fs');
 
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
+module.exports = ffmpeg;
+
 var ffmpegInstance
 
 var isLive = false
-var currentFile = 'long'
-var currentFormat = 'live'
+var currentLength = 'long'
+var currentType = 'live'
 
-var currentDirectoy = './public/media/' + currentFormat + '/' + currentFile 
+var currentDirectoy = './public/media/' + currentType + '/' + currentLength 
 
 app.engine('dust', cons.dust);
 
@@ -58,7 +62,7 @@ app.get('/startStream', function (req, res) {
 
   console.log('live stream has started')
 
-  ffmpegInstance = ffmpeg('./public/media/Sample_' + currentFile + '.mp4', { timeout: 432000 }).addOptions([
+  ffmpegInstance = ffmpeg('./public/media/Sample_' + currentLength + '.mp4', { timeout: 432000 }).addOptions([
     '-profile:v baseline', // baseline profile (level 3.0) for H264 video codec
     '-level 3.0', 
     '-s 640x360',          // 640px width, 360px height output video dimensions
@@ -66,17 +70,24 @@ app.get('/startStream', function (req, res) {
     '-hls_time 2',         // 2 second segment duration
     '-hls_list_size 0',    // Maxmimum number of playlist entries (0 means all entries/infinite)
     '-f hls'               // HLS format
-  ]).output('./public/media/' + currentFormat + '/' + currentFile + '/index.m3u8').on('end', function() {console.log('live stream has completed')}).run()
+  ]).output('./public/media/' + currentType + '/' + currentLength + '/index.m3u8').on('end', function() {console.log('live stream has completed')}).run()
     
     res.end();
+});
+
+app.get('/changeType/:type', function (req, res) {
+	currentType = req.query.type
+});
+
+app.get('/changeLength', function (req, res) {
+	currentLength = req.query.length
+	console.log(currentLength)
 });
 
 app.get('/stopStream', function (req, res) {
   
   ffmpegInstance.kill('SIGSTOP'); //https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#killsignalsigkill-kill-any-running-ffmpeg-process
-  fs.appendFile('./public/media/'  + currentFormat + '/' + currentFile + '/index.m3u8', '#EXT-X-ENDLIST', function (err) {
-
-});
+  fs.appendFile('./public/media/'  + currentType + '/' + currentLength + '/index.m3u8', '#EXT-X-ENDLIST', function (err) {});
 
     res.end();
 });
