@@ -5,31 +5,23 @@ var express = require('express'),
     dust = require('dustjs-helpers'),
     child_process = require('child_process'),
     ffmpegInstaller = require('@ffmpeg-installer/ffmpeg'),
-    ffmpeg = require('fluent-ffmpeg')
-    app = express();
-    const NodeMediaServer = require('node-media-server');
+    ffmpeg = require('fluent-ffmpeg'),
+    ffmpegInstance = ffmpeg(),
+    app = express(),
+    fs = require('fs'),
+    isLive = false,
+    currentLength = 'long',
+    currentType = 'live',
+    currentDirectoy = './public/media/' + currentType + '/' + currentLength
 
-    const fs = require('fs');
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 module.exports = ffmpeg;
 
-var ffmpegInstance
-
-var isLive = false
-var currentLength = 'long'
-var currentType = 'live'
-
-var currentDirectoy = './public/media/' + currentType + '/' + currentLength 
-
 app.engine('dust', cons.dust);
-
-
 app.set('view engine', 'dust');
 app.set('views', __dirname + '/views');
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
@@ -75,18 +67,24 @@ app.get('/startStream', function (req, res) {
     res.end();
 });
 
-app.get('/changeType/:type', function (req, res) {
+app.get('/changeType', function (req, res) {
 	currentType = req.query.type
+  console.log(currentType)
+  res.end();
 });
 
 app.get('/changeLength', function (req, res) {
 	currentLength = req.query.length
 	console.log(currentLength)
+
+  res.end();
 });
 
 app.get('/stopStream', function (req, res) {
   
-  ffmpegInstance.kill('SIGSTOP'); //https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#killsignalsigkill-kill-any-running-ffmpeg-process
+  //ffmpegInstance.on('error', function() { console.log('Ffmpeg has been killed'); });
+
+  ffmpegInstance.kill(); //https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#killsignalsigkill-kill-any-running-ffmpeg-process
   fs.appendFile('./public/media/'  + currentType + '/' + currentLength + '/index.m3u8', '#EXT-X-ENDLIST', function (err) {});
 
     res.end();
