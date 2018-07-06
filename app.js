@@ -10,8 +10,8 @@ var express = require('express'),
     app = express(),
     fs = require('fs'),
     isLive = false,
-    currentLength = 'long',
-    currentType = 'live',
+    currentLength = 'short',
+    currentType = 'vod',
     currentDirectoy = './public/media/' + currentType + '/' + currentLength
 
 
@@ -84,7 +84,7 @@ app.get('/stopStream', function (req, res) {
   
   //ffmpegInstance.on('error', function() { console.log('Ffmpeg has been killed'); });
 
-  ffmpegInstance.kill(); //https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#killsignalsigkill-kill-any-running-ffmpeg-process
+  //ffmpegInstance.kill(); //https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#killsignalsigkill-kill-any-running-ffmpeg-process
   fs.appendFile('./public/media/'  + currentType + '/' + currentLength + '/index.m3u8', '#EXT-X-ENDLIST', function (err) {});
 
     res.end();

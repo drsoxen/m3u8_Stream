@@ -18,7 +18,7 @@ To:
 ~~~~~~~~
 if (m_pPlayer->GetPlayerState() == CYIAbstractVideoPlayer::MEDIA_UNLOADED) 
 {
-    m_pPlayer->Prepare(CYIUrl("http://localhost:8000/live/localStream/index.m3u8"), GetAbstractStreamingFormat(m_eFormat)); 
+    m_pPlayer->Prepare(CYIUrl("http://localhost:8000/index.m3u8"), GetAbstractStreamingFormat(m_eFormat)); 
 }
 ~~~~~~~~
 
